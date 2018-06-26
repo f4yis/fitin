@@ -35,6 +35,30 @@ app.post('/login', (req, res) => {
 			})
 		})
 })
+
+app.post('/register', (req, res) => {
+	const {
+		username,
+		password
+	} = req.body
+	const newUser = new User({
+		username,
+		password
+	})
+	newUser.save()
+		.then(r => {
+			console.log(r)
+			res.json({
+				type: 'success',
+				id: r._id
+			})
+		})
+		.catch(() => {
+			res.json({
+				type: 'err'
+			})
+		})
+})
 app.listen(PORT, () => {
 	console.log(PORT)
 })
